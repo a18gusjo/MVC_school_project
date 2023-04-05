@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "RenspannView";
+}
+
+<h2>RenSpann</h2>
+<table class="table1">
+    <tr>
+        @foreach (var dataColumn in ViewBag.RenspannTable.Columns)
+        {
+            <th>@dataColumn.ColumnName</th>
+        }
+    </tr>
+    @foreach (var renspannRow in ViewBag.RenspannTable.Rows)
+    {
+        <tr>
+            @for (int i = 0; i < ViewBag.RenspannTable.Columns.Count; ++i)
+            {
+                <td class="TableRow">@renspannRow[i]</td>
+            }
+            <form method="post" action="@Url.Action("DeleteRenspann","Home")">
+                <input type="hidden" name=namn value="@renspannRow["namn"]">
+                <td class="SubmitTD"> <input type="submit" name="delete" value="Delete"></td>
+            </form>
+        </tr>
+    }
+</table>
+<br />
+<form method="post" action="@Url.Action("InsertRenspann", "Home")">
+    <table>
+        <tr>
+            <td class="SubmitTD"><input type="text" name="namn"></td>
+            <td class="SubmitTD"><input type="text" name="kapacitet"></td>
+            <td class="SubmitTD"><input type="submit" value="Skapa" /></td>
+        </tr>
+</form>
+</table>
+</br>

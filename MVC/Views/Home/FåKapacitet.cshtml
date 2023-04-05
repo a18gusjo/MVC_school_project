@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "FåKapacitet";
+}
+
+<h2>Total kapacitet för lastsläde</h2>
+@if (ViewBag.Kapacitet != null && ((System.Data.DataTable)ViewBag.Kapacitet).Rows.Count > 0)
+{
+    <table class="table1">
+        <tr>
+            @foreach (var dataColumn in ViewBag.Kapacitet.Columns)
+            {
+                <th>@dataColumn.ColumnName</th>
+            }
+        </tr>
+        @foreach (var slädeRow in ViewBag.Kapacitet.Rows)
+        {
+            <tr>
+                @for (int i = 0; i < ViewBag.Kapacitet.Columns.Count; ++i)
+                {
+                    <td class="TableRow">@slädeRow[i]</td>
+                }
+
+            </tr>
+        }
+    </table>
+
+}
+else
+{
+    <p>Något gick fel.</p>
+
+}

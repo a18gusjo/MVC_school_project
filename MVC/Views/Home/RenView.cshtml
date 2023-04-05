@@ -1,0 +1,152 @@
+﻿@{
+    ViewBag.Title = "RenView";
+}
+
+<h2>Renar</h2>
+<table class="table1">
+    <tr>
+    @foreach (var dataColumn in ViewBag.RenTable.Columns)
+    {
+        <th>@dataColumn.ColumnName</th>
+    }
+    </tr>
+    @foreach (var renRow in ViewBag.RenTable.Rows)
+        {
+        <tr>
+            @for (int i = 0; i < ViewBag.RenTable.Columns.Count; i++)
+            {
+                <td class="TableRow">@renRow[i] </td>
+
+            }
+            <form method="post" action="@Url.Action("PensioneraRen","Home")">
+                <input type="hidden" name=nr value="@renRow["nr"]">
+                <input type="hidden" name=tjänststatus value="@renRow["tjänststatus"]">
+                <td class="SubmitTD"> <input type="submit" name="pensionera" value="Pensionera"></td>
+            </form>
+        </tr>
+
+    }
+</table>
+<br />
+
+<form method="post" action="@Url.Action("InsertRen", "Home")">
+    <table>
+        <tr>
+            <td class="SubmitTD"><input type="text" name="nr"></td>
+            <td class="SubmitTD"><input type="text" name="klan"></td>
+
+            <td class="SubmitTD">
+                <select name="underart">
+                    @foreach (var row in ViewBag.UnderartTable.Rows)
+                    {
+                        <option value="@row["namn"]">@row["namn"]</option>
+                    }
+                </select>
+            </td>
+
+            <td class="SubmitTD">
+                <select name="stank">
+                    @foreach (var row in ViewBag.StankTable.Rows)
+                    {
+                        <option value="@row["nivå"]">@row["namn"]</option>
+                    }
+                </select>
+            </td>
+
+            <td class="SubmitTD"><input type="submit" value="Skapa" /></td>
+        </tr>
+</form>
+</table>
+
+
+<h2>Renar i tjänst</h2>
+<table class="table1">
+    <tr>
+        @foreach (var dataColumn in ViewBag.TjänstTable.Columns)
+        {
+            <th>@dataColumn.ColumnName</th>
+        }
+    </tr>
+
+    @foreach (var tjänstRow in ViewBag.TjänstTable.Rows)
+    {
+        <tr>
+            @for (int i = 0; i < ViewBag.TjänstTable.Columns.Count; i++)
+            {
+                <td class="TableRow">@tjänstRow[i] </td>
+            }
+
+        </tr>
+    }
+</table>
+<br />
+
+
+<table>
+    <tr>
+        <form method="post" action="@Url.Action("UppdateraTjänst", "Home")">
+            <td class="SubmitTD">
+                <select name="ren_nr">
+                    @foreach (var row in ViewBag.TjänstTable.Rows)
+                    {
+                        <option value="@row["ren_nr"]">@row["ren_nr"]</option>
+                    }
+                </select>
+            </td>
+            <td class="SubmitTD"><input type="text" name="lon"></td>
+            <td class="SubmitTD"><input type="submit" name="uppdatera" value="Uppdatera" style="display:inline"> </td>
+        </form>
+    </tr>
+</table>
+
+
+
+
+
+
+<h2>Pensionerade renar</h2>
+
+<table class="table1">
+    <tr>
+        @foreach (var dataColumn in ViewBag.PensioneradTable.Columns)
+        {
+            <th>@dataColumn.ColumnName</th>
+        }
+    </tr>
+
+    @foreach (var pensioneradRow in ViewBag.PensioneradTable.Rows)
+    {
+        <tr>
+            @for (int i = 0; i < ViewBag.PensioneradTable.Columns.Count; i++)
+            {
+                <td class="TableRow">@pensioneradRow[i] </td>
+            }
+
+        </tr>
+    }
+</table>
+<br />
+
+
+<table>
+    <tr>
+        <form method="post" action="@Url.Action("UppdateraPensionerad", "Home")">
+            <td class="SubmitTD">
+                <select name="ren_nummer">
+                    @foreach (var row in ViewBag.PensioneradTable.Rows)
+                    {
+                        <option value="@row["ren_nummer"]">@row["ren_nummer"]</option>
+                    }
+                </select>
+            </td>
+            <td class="SubmitTD"><input type="text" name="polsaburknr"></td>
+            <td class="SubmitTD"><input type="text" name="fabriknamn"></td>
+            <td class="SubmitTD"><input type="text" name="smak"></td>
+            <td class="SubmitTD"><input type="submit" name="uppdatera" value="Uppdatera" style="display:inline"> </td>
+        </form>
+    </tr>
+</table>
+<br />
+<br />
+<br />
+<br />

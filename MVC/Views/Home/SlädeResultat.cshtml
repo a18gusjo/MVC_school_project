@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "SlädeResultat";
+}
+    <h2>Släde</h2>
+@if (ViewBag.SlädeResult != null && ((System.Data.DataTable)ViewBag.SlädeResult).Rows.Count > 0){
+    <table class="table1">
+        <tr>
+            @foreach (var dataColumn in ViewBag.SlädeResult.Columns)
+            {
+                <th>@dataColumn.ColumnName</th>
+            }
+        </tr>
+        @foreach (var slädeRow in ViewBag.SlädeResult.Rows)
+        {
+            <tr>
+                @for (int i = 0; i < ViewBag.SlädeResult.Columns.Count; ++i)
+                {
+                    <td class="TableRow">@slädeRow[i]</td>
+                }
+              
+            </tr>
+        }
+    </table>
+ 
+}
+else{
+    <p>Hittade inga slädar.</p>
+   
+}
+</br>
+
+     <table>
+             <tr>
+           <th>nr</th>
+            <th>tillvärkare</th>
+             <th>steglängd</th>
+            <th>reg_typ</th>
+        
+        </tr>
+                    <tr>
+  <form method="post" action="@Url.Action("UppdateraSläde", "Home")">
+   <td class="SubmitTD">  
+           <select name="nr">
+            @foreach (var row in ViewBag.SlädeResult.Rows)
+            {
+                <option value="@row["nr"]">@row["nr"]</option>
+            }
+        </select>
+         </td>
+
+           <td class="SubmitTD"><input type="text" name="tillvärkare"></td>
+           <td class="SubmitTD"><input type="text" name="steglängd"></td>
+            <td class="SubmitTD"><input type="text" name="reg_typ"></td>
+            <td class="SubmitTD"><input type="submit" name="uppdatera" value="Uppdatera" style="display:inline"> </td>
+  </form>
+    </tr>
+    </table>
+
+@Html.ActionLink("Tillbaka", "SlädeView", "Home", null, new { title = "Tillbaka till Sök" })
+</br>
+</br>
+</br>

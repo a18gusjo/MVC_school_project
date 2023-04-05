@@ -1,0 +1,200 @@
+﻿@{
+    ViewBag.Title = "SlädeView";
+}
+<h2>Släde</h2>
+
+<form method="post" action="@Url.Action("SlädeResultat", "Home")">
+    <table>
+        <tr>
+            <td class="SubmitTD">
+                <input type="text" name="namn" placeholder="namn.." />
+            </td>
+            <td class="SubmitTD">
+                <input type="submit" value="Sök" />
+            </td>
+        </tr>
+    </table>
+</form>
+<table class="table1">
+    <tr>
+        @foreach (var dataColumn in ViewBag.SlädeTable.Columns)
+        {
+            <th>@dataColumn.ColumnName</th>
+        }
+    </tr>
+    @foreach (var slädeRow in ViewBag.SlädeTable.Rows)
+    {
+        <tr>
+            @for (int i = 0; i < ViewBag.SlädeTable.Columns.Count; ++i)
+            {
+               
+                    <td class="TableRow">@slädeRow[i]</td>
+            }
+         
+             <form method="post" action="@Url.Action("DeleteSläde","Home")">
+                  <input type="hidden" name=nr value=@slädeRow["nr"]>
+                <td class="SubmitTD"> <input type="submit" name="delete" value="Delete"></td>
+            </form>
+        </tr>
+    }
+</table>
+<table>
+    <tr>
+        <th>nr</th>
+        <th>namn</th>
+    </tr>
+    <tr>
+        <form method="post" action="@Url.Action("InsertSläde", "Home")">
+
+            <td class="SubmitTD"><input type="text" name="nr"></td>
+            <td class="SubmitTD"><input type="text" name="namn"></td>
+            <td class="SubmitTD"><input type="submit" name="uppdatera" value="Skapa" style="display:inline"> </td>
+        </form>
+    </tr>
+</table>
+<table>
+    <tr>
+        <th>nr</th>
+        <th>tillvärkare</th>
+        <th>steglängd</th>
+        <th>reg_typ</th>
+
+    </tr>
+    <tr>
+        <form method="post" action="@Url.Action("UppdateraSläde", "Home")">
+            <td class="SubmitTD">
+                <select name="nr">
+                    @foreach (var row in ViewBag.SlädeTable.Rows)
+                    {
+                        <option value="@row["nr"]">@row["nr"]</option>
+                    }
+                </select>
+            </td>
+            <td class="SubmitTD"><input type="text" name="tillvärkare"></td>
+            <td class="SubmitTD"><input type="text" name="steglängd"></td>
+            <td class="SubmitTD">
+                <select name="reg_typ">
+                    @foreach (var row in ViewBag.RegTable.Rows)
+                    {
+                        <option value="@row["typ"]">@row["namn"]</option>
+                    }
+                </select>
+            </td>
+            <td class="SubmitTD"><input type="submit" name="uppdatera" value="Uppdatera" style="display:inline"> </td>
+        </form>
+    </tr>
+</table>
+</br>
+
+<h2>Express-Slädar</h2>
+<table class="table1">
+    <tr>
+        @foreach (var dataColumn in ViewBag.ExpressTable.Columns)
+        {
+            <th>@dataColumn.ColumnName</th>
+        }
+    </tr>
+    @foreach (var slädeRow in ViewBag.ExpressTable.Rows)
+    {
+
+        <tr>
+            @for (int i = 0; i < ViewBag.ExpressTable.Columns.Count; ++i)
+            {
+                <td class="TableRow">@slädeRow[i]</td>
+            }
+
+        </tr>
+    }
+</table>
+
+<form method="post" action="@Url.Action("InsertExpress", "Home")">
+    <table>
+        <tr>
+            <th>nr</th>
+            <th>raketantal</th>
+            <th>bromsverkan</th>
+        </tr>
+        <tr>
+            <td class="SubmitTD">
+                <select name="släde_nr">
+                    @foreach (var row in ViewBag.SlädeTable.Rows)
+                    {
+                        <option value="@row["nr"]">@row["nr"]</option>
+                    }
+                </select>
+            </td>
+            <td class="SubmitTD"><input type="text" name="raketantal"></td>
+            <td class="SubmitTD"><input type="text" name="bromsverkan"></td>
+            <td class="SubmitTD"><input type="submit" value="Skapa" /></td>
+        </tr>
+</form>
+</table>
+<h2>Last-Slädar</h2>
+<table class="table1">
+    <tr>
+        @foreach (var dataColumn in ViewBag.LastTable.Columns)
+        {
+            <th>@dataColumn.ColumnName</th>
+        }
+    </tr>
+    @foreach (var slädeRow in ViewBag.LastTable.Rows)
+    {
+
+        <tr>
+            @for (int i = 0; i < ViewBag.LastTable.Columns.Count; ++i)
+            {
+                <td class="TableRow">@slädeRow[i]</td>
+            }
+
+        </tr>
+    }
+</table>
+<form method="post" action="@Url.Action("InsertLast", "Home")">
+    <table>
+        <tr>
+            <th>nr</th>
+            <th>extrakapacitet</th>
+            <th>klimattyp</th>
+
+        </tr>
+
+        <tr>
+            <td class="SubmitTD">
+                <select name="släde_nr">
+                    @foreach (var row in ViewBag.SlädeTable.Rows)
+                    {
+                        <option value="@row["nr"]">@row["nr"]</option>
+                    }
+                </select>
+            </td>
+
+            <td class="SubmitTD"><input type="text" name="extrakapacitet"></td>
+            <td class="SubmitTD"><input type="text" name="klimattyp"></td>
+            <td class="SubmitTD"><input type="submit" value="Skapa" /></td>
+        </tr>
+</form>
+</table>
+<form method="post" action="@Url.Action("FåKapacitet", "Home")">
+    <table>
+        <tr>
+            <th>nr</th>
+            <th>Få total kapacitet</th>
+        </tr>
+
+        <tr>
+            <td class="SubmitTD">
+                <select name="släde_nr">
+                    @foreach (var row in ViewBag.LastTable.Rows)
+                    {
+                        <option value="@row["släde_nr"]">@row["släde_nr"]</option>
+                    }
+                </select>
+            </td>
+
+            <td class="SubmitTD"><input type="submit" value="Få" /></td>
+        </tr>
+</form>
+</table>
+</br>
+</br>
+</br>

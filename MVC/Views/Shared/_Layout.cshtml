@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ModelViewController</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+</head>
+<body>
+    <div class="boxes">
+        <header>
+            <div class="wrapper">
+                <div class="logo">
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="title">Tomtefars Databas</a>
+                </div>
+                <nav>
+                    <a asp-area="" asp-controller="Home" asp-action ="RenView">Ren</a>
+                    <a asp-area="" asp-controller="Home" asp-action="RenspannView">Renspann</a>
+                    <a asp-area="" asp-controller="Home" asp-action="SlädeView">Släde</a>
+                   
+
+                </nav>
+
+            </div>
+        </header>
+        <div class="banner"></div>
+        <h2>Fixed Banner</h2>
+    </div>
+
+    <div class="content">
+        <div class="wrapper2">
+            <h2></h2>
+            <p>
+              @RenderBody()
+            </p>
+        </div>
+    </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
